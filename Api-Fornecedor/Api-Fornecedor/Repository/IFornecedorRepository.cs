@@ -6,5 +6,6 @@ namespace Api_Fornecedor.Repository
     {
         public Fornecedor Update(Fornecedor fornecedor);
         public Fornecedor GetByCnpj(string cnpj);
+        Fornecedor Create(Fornecedor fornecedor);
     }
 }

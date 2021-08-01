@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_Fornecedor.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20210801203745_initial")]
+    [Migration("20210801230429_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,15 +21,16 @@ namespace Api_Fornecedor.Migrations
 
             modelBuilder.Entity("Api_Fornecedor.Model.Empresas", b =>
                 {
-                    b.Property<string>("Cnpj")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("empresas_cnpj");
-
                     b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("id");
 
-                    b.HasKey("Cnpj");
+                    b.Property<string>("Cnpj")
+                        .HasColumnType("longtext")
+                        .HasColumnName("empresas_cnpj");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Empresas");
                 });
@@ -49,8 +50,8 @@ namespace Api_Fornecedor.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("email");
 
-                    b.Property<string>("EmpresasCnpj")
-                        .HasColumnType("varchar(255)");
+                    b.Property<long?>("EmpresasId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("NomeFantasia")
                         .HasColumnType("longtext")
@@ -70,31 +71,9 @@ namespace Api_Fornecedor.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmpresasCnpj");
+                    b.HasIndex("EmpresasId");
 
                     b.ToTable("fornecedor");
-                });
-
-            modelBuilder.Entity("Api_Fornecedor.Model.FornecedorEmpresas", b =>
-                {
-                    b.Property<long>("FornecedorId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("EmpresaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("EmpresasCnpj")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<long>("Id")
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    b.HasKey("FornecedorId", "EmpresaId");
-
-                    b.HasIndex("EmpresasCnpj");
-
-                    b.ToTable("fornecedor_empresas");
                 });
 
             modelBuilder.Entity("Api_Fornecedor.Model.LogDesenvolvedor", b =>
@@ -119,26 +98,11 @@ namespace Api_Fornecedor.Migrations
 
             modelBuilder.Entity("Api_Fornecedor.Model.Fornecedor", b =>
                 {
-                    b.HasOne("Api_Fornecedor.Model.Empresas", null)
-                        .WithMany("Fornecedores")
-                        .HasForeignKey("EmpresasCnpj");
-                });
-
-            modelBuilder.Entity("Api_Fornecedor.Model.FornecedorEmpresas", b =>
-                {
                     b.HasOne("Api_Fornecedor.Model.Empresas", "Empresas")
-                        .WithMany()
-                        .HasForeignKey("EmpresasCnpj");
-
-                    b.HasOne("Api_Fornecedor.Model.Fornecedor", "Fornecedor")
-                        .WithMany()
-                        .HasForeignKey("FornecedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Fornecedores")
+                        .HasForeignKey("EmpresasId");
 
                     b.Navigation("Empresas");
-
-                    b.Navigation("Fornecedor");
                 });
 
             modelBuilder.Entity("Api_Fornecedor.Model.Empresas", b =>

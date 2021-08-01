@@ -36,11 +36,12 @@ namespace Api_Fornecedor.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("GetEmpresasEFornecedores")]
-        public IActionResult GetEmpresasEFornecedores([FromBody] int cnpj)
+        public IActionResult GetEmpresasEFornecedores( string cnpj)
         {
 
-            return Ok(_empresaBusiness.FindById(cnpj));
+            return Ok(_empresaBusiness.FindByCnpj(cnpj));
         }
 
 

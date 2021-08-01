@@ -15,13 +15,14 @@ namespace Api_Fornecedor.Migrations
                 name: "Empresas",
                 columns: table => new
                 {
-                    empresas_cnpj = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    empresas_cnpj = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Empresas", x => x.empresas_cnpj);
+                    table.PrimaryKey("PK_Empresas", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -47,8 +48,7 @@ namespace Api_Fornecedor.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    EmpresasCnpj = table.Column<string>(type: "varchar(255)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EmpresasId = table.Column<long>(type: "bigint", nullable: true),
                     cnpj = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     razao_social = table.Column<string>(type: "longtext", nullable: true)
@@ -65,63 +65,27 @@ namespace Api_Fornecedor.Migrations
                 {
                     table.PrimaryKey("PK_fornecedor", x => x.id);
                     table.ForeignKey(
-                        name: "FK_fornecedor_Empresas_EmpresasCnpj",
-                        column: x => x.EmpresasCnpj,
+                        name: "FK_fornecedor_Empresas_EmpresasId",
+                        column: x => x.EmpresasId,
                         principalTable: "Empresas",
-                        principalColumn: "empresas_cnpj",
-                        onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "fornecedor_empresas",
-                columns: table => new
-                {
-                    FornecedorId = table.Column<long>(type: "bigint", nullable: false),
-                    EmpresaId = table.Column<long>(type: "bigint", nullable: false),
-                    EmpresasCnpj = table.Column<string>(type: "varchar(255)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    id = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_fornecedor_empresas", x => new { x.FornecedorId, x.EmpresaId });
-                    table.ForeignKey(
-                        name: "FK_fornecedor_empresas_Empresas_EmpresasCnpj",
-                        column: x => x.EmpresasCnpj,
-                        principalTable: "Empresas",
-                        principalColumn: "empresas_cnpj",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_fornecedor_empresas_fornecedor_FornecedorId",
-                        column: x => x.FornecedorId,
-                        principalTable: "fornecedor",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_fornecedor_EmpresasCnpj",
+                name: "IX_fornecedor_EmpresasId",
                 table: "fornecedor",
-                column: "EmpresasCnpj");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_fornecedor_empresas_EmpresasCnpj",
-                table: "fornecedor_empresas",
-                column: "EmpresasCnpj");
+                column: "EmpresasId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "fornecedor_empresas");
+                name: "fornecedor");
 
             migrationBuilder.DropTable(
                 name: "log_desenvolvedor");
-
-            migrationBuilder.DropTable(
-                name: "fornecedor");
 
             migrationBuilder.DropTable(
                 name: "Empresas");

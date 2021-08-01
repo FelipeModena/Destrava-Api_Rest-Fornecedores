@@ -22,7 +22,8 @@ namespace Api_Fornecedor.Business.BusinessImplementation
 
         public Fornecedor Create(Fornecedor fornecedor)
         {
-           return _genericRepository.Create(fornecedor);
+            fornecedor.Empresas = null;
+            return _fornecedorRepository.Create(fornecedor);
         }
 
         public void Delete(long id)

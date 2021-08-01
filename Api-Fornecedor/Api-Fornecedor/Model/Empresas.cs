@@ -11,10 +11,8 @@ namespace Api_Fornecedor.Model
     [Table("Empresas")]
     public class Empresas:BaseEntity
     {
-        [Key]
         [Column("empresas_cnpj")]
         public string Cnpj { get; set; }
-        [Column("fornecedores")]
         public virtual List<Fornecedor> Fornecedores { get; set; }
     }
 }

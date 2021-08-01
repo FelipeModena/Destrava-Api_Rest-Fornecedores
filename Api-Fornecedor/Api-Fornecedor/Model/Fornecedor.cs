@@ -8,6 +8,7 @@ namespace Api_Fornecedor.Model
     public class Fornecedor : BaseFornecedor
     {
         [Column("empresa")]
-        List<Empresas> Empresas { get; set; }
+        public virtual Empresas Empresas { get; set; }
+
     }
 }

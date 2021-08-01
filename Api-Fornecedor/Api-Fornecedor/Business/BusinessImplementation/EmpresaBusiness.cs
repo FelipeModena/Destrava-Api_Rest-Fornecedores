@@ -21,7 +21,7 @@ namespace Api_Fornecedor.Business.BusinessImplementation
 
         public Empresas Create(Empresas empresa)
         {
-            return _genericRepository.Create(empresa);
+            return _empresaRepository.Create(empresa);
         }
 
         public void Delete(long id)
@@ -29,9 +29,9 @@ namespace Api_Fornecedor.Business.BusinessImplementation
             throw new NotImplementedException();
         }
 
-        public Empresas FindById(long id)
+        public Empresas FindByCnpj(string id)
         {
-            return _empresaRepository.FindById(id);
+            return _empresaRepository.FindByCnpj(id);
         }
 
         public Empresas Update(Empresas empresa)

@@ -4,6 +4,7 @@ namespace Api_Fornecedor.Repository.RepositoryImplementation
 {
     public interface IEmpresaRepository
     {
-        public Empresas FindById(long Id);
+        public Empresas FindByCnpj(string Id);
+        Empresas Create(Empresas empresa);
     }
 }

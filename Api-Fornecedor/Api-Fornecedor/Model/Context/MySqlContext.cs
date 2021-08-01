@@ -9,12 +9,6 @@ namespace ApiRestComASPNet.Model.Context
         { }
 
 
-        protected override void
-            OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<FornecedorEmpresas>()
-                .HasKey(x => new { x.FornecedorId, x.EmpresaId});
-        }
 
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<LogDesenvolvedor> LogDesenvolvedor { get; set; }

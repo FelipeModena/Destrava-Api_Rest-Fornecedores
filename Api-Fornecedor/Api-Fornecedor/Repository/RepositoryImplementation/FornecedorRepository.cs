@@ -17,6 +17,28 @@ namespace Api_Fornecedor.Repository.RepositoryImplementation
             _sqlContext = sqlContext;
         }
 
+        public Fornecedor Create(Fornecedor fornecedor)
+        {
+            try
+            {
+                if (_sqlContext.Fornecedor.FirstOrDefault(f=>f.Id==fornecedor.Id)==null)
+                {
+                    _sqlContext.Fornecedor.Add(fornecedor);
+                    _sqlContext.SaveChanges();
+                    return fornecedor;
+                }
+                else
+                {
+                    return new Fornecedor { };
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public Fornecedor GetByCnpj(string cnpj)
         {
             return _sqlContext.Fornecedor.FirstOrDefault(f => f.Cnpj == cnpj);
