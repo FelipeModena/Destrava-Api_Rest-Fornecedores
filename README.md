@@ -26,6 +26,7 @@ Se nao achar interessante, é aconcelhavel usar o Postman para testar a autentic
 <---->
 # Descrição dos pacotes 
 Foi usado na aplcação os seguintes pacotes:
+
 Microsoft.EntityFrameworkCore: Para fazer a relacionamento de tabelas, geraçao de Migrations para banco de dados, e toda a sua camada de Contexto na Model/Context/MySQLContext;
 
 Pomelo.EntityFrameworkCore: para fazer relacionamento de tabelas para o modelo especifico do banco de dados do MySQL.
